@@ -7,6 +7,10 @@ module Markuper
       element.action = 'if'
     end
 
+    builder :ifnot do |element|
+      element.action = 'ifnot'
+    end
+
     builder :with do |element|
       element.action = 'with'
     end

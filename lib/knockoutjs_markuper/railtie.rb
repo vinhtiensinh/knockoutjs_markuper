@@ -2,7 +2,7 @@ require 'markuper/helper'
 module Markuper
   class Railtie < Rails::Railtie
     initializer 'knockoutjs_markuper.helper' do
-      ActionView::Base.send :include, Markuper::KnockoutjsMarkuper
+      ActionView::Base.send :include, Markuper::KnockoutjsHelper
     end
 
     initializer "knockoutjs_markuper.template dir" do
