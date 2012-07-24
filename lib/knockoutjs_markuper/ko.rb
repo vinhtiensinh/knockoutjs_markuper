@@ -3,6 +3,10 @@ module Markuper
     attr_accessor :action
     default_template 'ko'
 
+    before_build do |element|
+      element.data = element.data.html_safe
+    end
+
     builder :if do |element|
       element.action = 'if'
     end
