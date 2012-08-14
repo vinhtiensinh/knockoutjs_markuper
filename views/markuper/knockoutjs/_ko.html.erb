@@ -1,3 +1,10 @@
+<% if element.action == 'if' %>
+<!-- ko <%= element.action %>: <%= element.condition %> -->
+<%= element.content %>
+<!-- /ko -->
+
+<% else %>
 <!-- ko <%= element.action %>: <%= element.data %> -->
 <%= element.content %>
 <!-- /ko -->
+<% end %>
