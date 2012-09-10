@@ -15,14 +15,20 @@ module Markuper
 
       if data_bind.instance_of?(Hash)
         attr_bindings = data_bind[:attr] || {}
+        event_bindings = data_bind[:event] || {}
+
         data_bind.each_pair do |key, value|
           if element._attribute_bindings.include? key.to_s
             data_bind.delete(key)
             attr_bindings[key] = value
+          elsif element._event_bindings.include? key.to_s
+            data_bind.delete(key)
+            event_bindings[key] = value
           end
         end
 
         data_bind[:attr] = attr_bindings if attr_bindings.present?
+        data_bind[:event] = event_bindings if event_bindings.present?
       end
 
       if data_bind.present?
@@ -32,6 +38,10 @@ module Markuper
 
     def _attribute_bindings
       [ 'id', 'href', 'src', 'name' ]
+    end
+
+    def _event_bindings
+      ['mouseover', 'mouseout']
     end
 
     def _ko_bind bind_value, root=false
