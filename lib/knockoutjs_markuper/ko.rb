@@ -8,17 +8,19 @@ module Markuper
       self.class.last
     end
 
-    attr_accessor :action, :condition
+    attr_accessor :action, :condition, :conditions
     default_template 'ko'
 
     builder :if do |element|
       element.action = 'if'
-      element.condition = element.data
+      element.condition  = element.data
+      element.conditions = [element.condition]
     end
 
     builder :ifnot do |element|
       element.action = 'if'
       element.condition = "!(#{element.data})"
+      element.conditions = [element.condition]
     end
 
     builder :elsif do |element|
@@ -28,7 +30,9 @@ module Markuper
       end
 
       element.action = 'if'
-      element.condition = "!(#{element.last.condition}) && #{element.data}"
+      element.conditions = element.last.conditions
+      element.condition = "!(#{element.last.conditions.join(' || ')}) && #{element.data}"
+      element.conditions.push(element.data)
     end
 
     builder :else do |element|
@@ -37,7 +41,7 @@ module Markuper
       end
 
       element.action = 'if'
-      element.condition = "!(#{element.last.condition})"
+      element.condition = "!(#{element.last.conditions.join(' || ')})"
     end
 
     builder :with do |element|
