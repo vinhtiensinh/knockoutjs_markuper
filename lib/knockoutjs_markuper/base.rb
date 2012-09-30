@@ -37,7 +37,7 @@ module Markuper
     end
 
     def _attribute_bindings
-      [ 'id', 'href', 'src', 'name' ]
+      [ 'id', 'href', 'src', 'name', 'action' ]
     end
 
     def _event_bindings
